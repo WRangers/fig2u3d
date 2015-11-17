@@ -84,7 +84,25 @@ syntax: glob
 *.mp3
 *.mp4
 # site-specific
-idtf2u3d/bin/*
 dist/*
 *.u3d
 *.vws
+
+# build temp
+u3d/CMakeCache.txt
+u3d/CMakeFiles/
+u3d/Makefile
+u3d/cmake_install.cmake
+u3d/cmake_uninstall.cmake
+
+# u3d folder
+u3d/HelloU3DWorld
+u3d/IDTFConverter
+u3d/IDTFGen
+u3d/jconfig.h
+u3d/libIFXCoreStatic.a
+u3d/zconf.h
+
+# excludes
+!idtf2u3d/bin/*/*
+
