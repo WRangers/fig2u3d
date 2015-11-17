@@ -30,17 +30,6 @@
 #include <sys/types.h>
 #include <math.h>
 
-#ifdef _MSC_VER
-typedef UINT64  U64;
-typedef UINT32  U32;
-typedef UINT16  U16;
-typedef UINT8   U8;
-typedef UINT_PTR UPTR;
-typedef INT64   I64;
-typedef INT32   I32;
-typedef INT16   I16;
-typedef INT8    I8;
-#else
 #include <stdint.h>
 typedef uint64_t  U64;
 typedef uint32_t  U32;
@@ -51,7 +40,7 @@ typedef int64_t  I64;
 typedef int32_t  I32;
 typedef int16_t  I16;
 typedef int8_t   I8;
-#endif
+
 #define U32_MAX 4294967295U
 
 typedef float     F32;
