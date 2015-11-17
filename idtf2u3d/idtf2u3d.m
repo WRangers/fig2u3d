@@ -26,18 +26,7 @@ function [] = idtf2u3d(idtffile, u3dfile)
 %   extension gets appended with that extension ('.idtf' and '.u3d',
 %   respectively).
 %
-% reference
-%   IDTF (Intermediate Data Text File) Format Description, Version 100,
-%   Intel Corporation, 2005, available at:
-%       http://u3d.svn.sourceforge.net/viewvc/u3d/releases/Gold12Update/Docs/IntermediateFormat/IDTF%20Format%20Description.pdf
-%
 % See also FIG2U3D, FIG2PDF3D, FIG2IDTF.
-%
-% File:      idtf2u3d.m
-% Author:    Ioannis Filippidis, jfilippidis@gmail.com
-% Date:      2011.02.17 - 2012.06.21
-% Language:  MATLAB R2012a
-% Purpose:   convert IDTF file to U3D file format
 %
 % Based on MESH_TO_LATEX.m by Alexandre Gramfort, which is part of
 % "Matlab mesh to PDF with 3D interactive object"
@@ -66,45 +55,20 @@ idtffile = full_fname_with_extension(idtffile, 'idtf');
 u3dfile = full_fname_with_extension(u3dfile, 'u3d');
 
 %% prepare command
-mfiledir = fileparts(mfilename('fullpath') );
-curpath = pwd;
+execdir = [fileparts(mfilename('fullpath')), filesep, 'bin',filesep, computer, filesep];
+libs_helper(execdir);
 
-% Intel Mac
-if ismac
-    idtf_executable_path = [mfiledir, '/bin/maci/'];
-    cd(idtf_executable_path)
-    
-    IDTFcmd = './IDTFConverter';
-    
-    %temp = [getenv('DYLD_LIBRARY_PATH'), ':"', mfiledir, '/bin/maci/"'];
-    %setenv('DYLD_LIBRARY_PATH', temp)
-    %IDTFcmd = ['"', mfiledir, '/bin/maci/', IDTFcmd, '"'];
-end
-
-% Linux
-if isunix && ~ismac
-    idtf_executable_path = [mfiledir, '/bin/glx/'];
-    cd(idtf_executable_path)
-    
-    IDTFcmd = './IDTFConverter.sh';
-    
-    %temp = [getenv('LD_LIBRARY_PATH'), ':"', mfiledir, '/bin/glx/"'];
-    %setenv('LD_LIBRARY_PATH', temp)
-    %IDTFcmd = ['"', mfiledir, '/bin/glx/', IDTFcmd, '.sh"'];
-end
-
-% windows
 if ispc
-    win_mfiledir = strrep(mfiledir, '\', '\\');
-    IDTFcmd = ['"', win_mfiledir, '\\bin\\w32\\IDTFConverter.exe"'];
+    IDTF = [execdir, 'IDTFConverter.exe'];
+else
+    IDTF = [execdir, 'IDTFConverter'];
 end
+
 
 %% idtf -> u3d conversion
-s = [IDTFcmd, ' -input "%s" -output "%s"'];
-idtf2u3dcmd = sprintf(s, idtffile, u3dfile);
-disp(idtf2u3dcmd)
-[status, result] = system(idtf2u3dcmd);
-cd(curpath) % go back
+cmd = [IDTF, ' -input ', idtffile, ' -output ', u3dfile];
+disp(cmd);
+[status, result] = system(cmd);
 
 disp(result)
 if status ~= 0
