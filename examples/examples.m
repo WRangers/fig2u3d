@@ -14,9 +14,9 @@ ax = gca;
 %% plot
 % uncomment each example to use it
 fname = peaks_contour(ax);
-%fname = peaks_facecolors(ax);
-%fname = peaks_sphere(ax);
-%fname = mixed_scene(ax);
+% fname = peaks_facecolors(ax);
+% fname = peaks_sphere(ax);
+% fname = mixed_scene(ax);
 
 %% export
 fig2u3d(ax, fname)

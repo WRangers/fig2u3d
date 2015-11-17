@@ -1,4 +1,4 @@
-function ea_libs_helper(libpath)
+function libs_helper(libpath)
 
 % add shared libraries to search path
 

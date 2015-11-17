@@ -39,10 +39,10 @@ if isempty(ax)
 end
 
 % no plotting output (silent)
-if isnan(ax)
-    %disp('Axes handle is nan. No graphical output.')
-    return
-end
+% if isnan(ax)
+%     %disp('Axes handle is nan. No graphical output.')
+%     return
+% end
 
 % >3D ?
 ndim = size(x, 1);

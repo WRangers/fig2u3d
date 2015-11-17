@@ -60,7 +60,7 @@ for i=1:size(sh, 1)
     end
 end
 
-sh(isnan(sh) ) = [];
+% sh(isnan(sh) ) = [];
 
 if isempty(sh)
     vertices = [];
