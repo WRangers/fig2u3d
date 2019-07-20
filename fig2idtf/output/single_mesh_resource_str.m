@@ -52,7 +52,7 @@ end
 strfaces = sprintf('                    %d %d %d\n', faces.'-1);
 strpoints = sprintf('                    %f %f %f\n', points.');
 
-normals = mesh_normals(points, faces);
+[normals, ~] = compute_normal(points, faces);
 normals(isnan(normals) ) = 0;
 strnormals = sprintf('                    %f %f %f\n', normals.');
 

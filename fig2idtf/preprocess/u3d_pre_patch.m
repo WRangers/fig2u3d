@@ -1,7 +1,7 @@
 function [vertices, faces, facevertexcdata, renderer] = u3d_pre_patch(ax)
 %U3D_PRE_PATCH    Preprocess surface output to u3d.
 %
-% usage 
+% usage
 %   [vertices, faces, facevertexcdata] = U3D_PRE_PATCH
 %   [vertices, faces, facevertexcdata] = U3D_PRE_PATCH(h)
 %
@@ -29,7 +29,7 @@ function [vertices, faces, facevertexcdata, renderer] = u3d_pre_patch(ax)
 % File:      u3d_pre_patch.m
 % Based on:  u3d_pre by Sven Koerner, koerner(underline)sven(add)gmx.de
 % Author:    Ioannis Filippidis, jfilippidis@gmail.com
-% Date:      2012.07.16 - 
+% Date:      2012.07.16 -
 % Language:  MATLAB R2012a
 % Purpose:   preprocess patch children of axes for u3d export
 %
@@ -66,7 +66,7 @@ renderer = cell(1, N);
 for i=1:N
     disp(['     Preprocessing patch No.', num2str(i) ] );
     h = sh(i, 1);
-    
+
     [v, f, fvx, r] = single_patch_preprocessor(h);
     disp('Face Vertex Size of patch:')
     size(fvx)
@@ -135,32 +135,19 @@ end
 ax = get(h, 'Parent');
 
 % single row ? - fix to avoid errors later when exporting
-if size(facevertexcdata, 1) 
-    disp('Patch: Single row FaceVerteXCData, replicating for all faces.')
-    nfaces = size(faces, 1);
-    facevertexcdata = repmat(facevertexcdata, nfaces, 1);
-end
+% if size(facevertexcdata, 1)
+%     disp('Patch: Single row FaceVerteXCData, replicating for all faces.')
+%     nfaces = size(faces, 1);
+%     facevertexcdata = repmat(facevertexcdata, nfaces, 1);
+% end
 
 facevertexcdata = scaled_ind2rgb(facevertexcdata, ax);
 
 function [realcolor] = scaled_ind2rgb(cdata, ax)
 cdata = double(cdata);
-
 cmap = colormap(ax);
-nColors = size(cmap, 1);
-[cmin, cmax] = caxis(ax);
+realcolor=squeeze(ind2rgb(round(cdata),cmap));
 
-idx = (cdata -cmin) / (cmax -cmin) *nColors;
-idx = ceil(idx);
-idx(idx < 1) = 1;
-idx(idx > nColors) = nColors;
-
-%% handle nans in idx
-nanmask = isnan(idx);
-idx(nanmask) = 1; %temporarily replace w/ a valid colormap index
-
-%% realcolor and output
-realcolor = cmap(idx, :);
 
 function [f] = delaunay_triangulate_patch_face(faces, vertices)
 warning('patch:faces', 'Patch faces are not triangulated.')
@@ -192,7 +179,7 @@ for i=1:n
     A = orth_base.';
     xproj = A *xrel;
     curtrifaces = delaunay(xproj.');
-    
+
     f{i, 1} = curface(curtrifaces);
 end
 f = cell2mat(f);
