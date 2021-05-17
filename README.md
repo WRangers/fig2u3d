@@ -107,3 +107,6 @@ Development on [github](https://github.com/johnyf/fig2u3d), releases here and al
 
 ## Keywords
 3d, u3d, graphics, export, save, plot, surface, vector, quiver, quivergroup, mesh, contourgroup, contour, data export, mathematics, vision, latex, pdf, media9, movie15, pdflatex, xelatex
+
+## Fix bug
+[rm command](https://github.com/johnyf/fig2u3d/issues/1)
